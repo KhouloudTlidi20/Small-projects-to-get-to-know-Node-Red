@@ -11,7 +11,7 @@ By using some of Node-Red elementary cores I managed to visualize in a gauge the
 <img src="https://github.com/KhouloudTlidi20/Small-projects-to-get-to-know-Node-Red/blob/main/Weather%20temperature.png" width="700" height="300">
 To see the result we open the ui dashboard and here is the result:
 <img src="https://github.com/KhouloudTlidi20/Small-projects-to-get-to-know-Node-Red/blob/main/Dashboard.png" width="700" height="300">
-If you want to import the project here is the [json_code](https://github.com/KhouloudTlidi20/Small-projects-to-get-to-know-Node-Red/blob/main/Weather.json).
+If you want to import the project here is the json code https://github.com/KhouloudTlidi20/Small-projects-to-get-to-know-Node-Red/blob/main/Weather.json.
 
 2. Read & write data from serial port
 For IOT projects we need so much a tool to visualize our results, so by using the node COM of Node-Red the need is met.
