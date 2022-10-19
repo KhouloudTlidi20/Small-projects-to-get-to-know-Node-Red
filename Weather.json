@@ -1,0 +1,416 @@
+[
+    {
+        "id": "8c5f30ed9dd12ae1",
+        "type": "tab",
+        "label": "Weather project",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "73d76b11525421e5",
+        "type": "inject",
+        "z": "8c5f30ed9dd12ae1",
+        "name": "",
+        "props": [
+            {
+                "p": "timestamp",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 100,
+        "wires": [
+            [
+                "dc928f038a7034fc"
+            ]
+        ]
+    },
+    {
+        "id": "dc928f038a7034fc",
+        "type": "http request",
+        "z": "8c5f30ed9dd12ae1",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.openweathermap.org/data/2.5/weather?q=casablanca&appid=276d2beb8a167540bf628b3a379a7fe3&units=metric",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 290,
+        "y": 100,
+        "wires": [
+            [
+                "76af0f844efd2b8b",
+                "a522f3eac3ebed1d"
+            ]
+        ]
+    },
+    {
+        "id": "76af0f844efd2b8b",
+        "type": "debug",
+        "z": "8c5f30ed9dd12ae1",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "e255ac1df3f5bfbf",
+        "type": "comment",
+        "z": "8c5f30ed9dd12ae1",
+        "name": "Get only information about temperature",
+        "info": "",
+        "x": 690,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "5a7ad23bb22fd259",
+        "type": "ui_led",
+        "z": "8c5f30ed9dd12ae1",
+        "order": 2,
+        "group": "d4391db35a17a945",
+        "width": 0,
+        "height": 0,
+        "label": "Normal weather",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#008000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Medium temperature",
+        "x": 860,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "7c9166ae4449c0a9",
+        "type": "ui_led",
+        "z": "8c5f30ed9dd12ae1",
+        "order": 1,
+        "group": "d4391db35a17a945",
+        "width": 0,
+        "height": 0,
+        "label": "Hot weather",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Hot weather",
+        "x": 830,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "a522f3eac3ebed1d",
+        "type": "change",
+        "z": "8c5f30ed9dd12ae1",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.main",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 240,
+        "y": 320,
+        "wires": [
+            [
+                "1d1cf2c39c936615",
+                "d141a1896eee4b50",
+                "06c1c9fd1ff58270"
+            ]
+        ]
+    },
+    {
+        "id": "1d1cf2c39c936615",
+        "type": "switch",
+        "z": "8c5f30ed9dd12ae1",
+        "name": "",
+        "property": "payload.temp",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "27",
+                "vt": "str"
+            },
+            {
+                "t": "lt",
+                "v": "12",
+                "vt": "str"
+            },
+            {
+                "t": "btwn",
+                "v": "12",
+                "vt": "num",
+                "v2": "27",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 350,
+        "y": 440,
+        "wires": [
+            [
+                "9cc58bf624761e22"
+            ],
+            [
+                "6f17818435097d9a"
+            ],
+            [
+                "2831a8790e37a82b"
+            ]
+        ],
+        "outputLabels": [
+            "Hot",
+            "Cold",
+            "Normal temperature"
+        ]
+    },
+    {
+        "id": "d141a1896eee4b50",
+        "type": "debug",
+        "z": "8c5f30ed9dd12ae1",
+        "name": "See the current value of temperature in °C",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.temp",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "6df652e3c8b5b4b8",
+        "type": "ui_led",
+        "z": "8c5f30ed9dd12ae1",
+        "order": 3,
+        "group": "d4391db35a17a945",
+        "width": 0,
+        "height": 0,
+        "label": "Cold weather",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#0000ff",
+                "value": "true",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "Cold weather",
+        "x": 830,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "2831a8790e37a82b",
+        "type": "change",
+        "z": "8c5f30ed9dd12ae1",
+        "name": "Change message to boolean",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 500,
+        "wires": [
+            [
+                "5a7ad23bb22fd259"
+            ]
+        ]
+    },
+    {
+        "id": "6f17818435097d9a",
+        "type": "change",
+        "z": "8c5f30ed9dd12ae1",
+        "name": "Change message to boolean",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 460,
+        "wires": [
+            [
+                "6df652e3c8b5b4b8"
+            ]
+        ]
+    },
+    {
+        "id": "9cc58bf624761e22",
+        "type": "change",
+        "z": "8c5f30ed9dd12ae1",
+        "name": "Change message to boolean",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 420,
+        "wires": [
+            [
+                "7c9166ae4449c0a9"
+            ]
+        ]
+    },
+    {
+        "id": "fe8aaff62fbf5826",
+        "type": "ui_gauge",
+        "z": "8c5f30ed9dd12ae1",
+        "name": "",
+        "group": "d4391db35a17a945",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "35",
+        "colors": [
+            "#00ddfa",
+            "#00e60f",
+            "#ca3838"
+        ],
+        "seg1": "12",
+        "seg2": "27",
+        "className": "",
+        "x": 850,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "06c1c9fd1ff58270",
+        "type": "change",
+        "z": "8c5f30ed9dd12ae1",
+        "name": "Change result to a value",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.temp",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 240,
+        "wires": [
+            [
+                "fe8aaff62fbf5826"
+            ]
+        ]
+    },
+    {
+        "id": "d4391db35a17a945",
+        "type": "ui_group",
+        "name": "Leds",
+        "tab": "3a9f582bbd540fa6",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3a9f582bbd540fa6",
+        "type": "ui_tab",
+        "name": "Weather",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]

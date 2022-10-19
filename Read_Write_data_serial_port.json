@@ -1,0 +1,203 @@
+[
+    {
+        "id": "1d3256855bfb2edd",
+        "type": "tab",
+        "label": "Read or Write data from a serial port",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a4388292fe0c4d39",
+        "type": "serial out",
+        "z": "1d3256855bfb2edd",
+        "name": "",
+        "serial": "0fb5ebd3418c3cf5",
+        "x": 570,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "51025c5a9e352bbc",
+        "type": "inject",
+        "z": "1d3256855bfb2edd",
+        "name": "LED ON",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 220,
+        "y": 100,
+        "wires": [
+            [
+                "a4388292fe0c4d39",
+                "f0c8e66d407ec90d"
+            ]
+        ]
+    },
+    {
+        "id": "f0c8e66d407ec90d",
+        "type": "debug",
+        "z": "1d3256855bfb2edd",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "46ae2556c5f0cf0d",
+        "type": "serial in",
+        "z": "1d3256855bfb2edd",
+        "name": "",
+        "serial": "04ac44685fb0aa64",
+        "x": 190,
+        "y": 480,
+        "wires": [
+            [
+                "5c7b808bccf90d2f"
+            ]
+        ]
+    },
+    {
+        "id": "089efd3378c8d13e",
+        "type": "ui_gauge",
+        "z": "1d3256855bfb2edd",
+        "name": "",
+        "group": "ec5c63f3d68e924f",
+        "order": 3,
+        "width": "0",
+        "height": "0",
+        "gtype": "gage",
+        "title": "Taux de remplissage",
+        "label": "%",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "50",
+        "seg2": "80",
+        "className": "",
+        "x": 640,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "5c7b808bccf90d2f",
+        "type": "function",
+        "z": "1d3256855bfb2edd",
+        "name": "",
+        "func": "var message=msg.payload;\nvar word_list=message.split(\",\");\nvar wordCounter=word_list.length;\nreturn {payload : parseInt(word_list[0])};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 480,
+        "wires": [
+            [
+                "00a01cbc10d48dd5",
+                "089efd3378c8d13e"
+            ]
+        ]
+    },
+    {
+        "id": "00a01cbc10d48dd5",
+        "type": "debug",
+        "z": "1d3256855bfb2edd",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 610,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "0fb5ebd3418c3cf5",
+        "type": "serial-port",
+        "serialport": "COM8",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "04ac44685fb0aa64",
+        "type": "serial-port",
+        "serialport": "COM7",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "ec5c63f3d68e924f",
+        "type": "ui_group",
+        "name": "Arduinoo",
+        "tab": "6094b07cb9c0d343",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": "1"
+    },
+    {
+        "id": "6094b07cb9c0d343",
+        "type": "ui_tab",
+        "name": "iot",
+        "icon": "dashboard",
+        "order": 7,
+        "disabled": false,
+        "hidden": false
+    }
+]
